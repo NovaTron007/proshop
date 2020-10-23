@@ -1,3 +1,23 @@
+## Setup
+
+- cd proshop/ && npx create-react-app proshop
+- cleanup files
+
+## Dependencies /frontend
+
+- npm install react-bootstrap
+- Add bootswatch theme css and simple header from bootstrap react
+
+###
+
+###
+
+###
+
+###
+
+###
+
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
 ## Available Scripts
