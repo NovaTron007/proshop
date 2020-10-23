@@ -2,14 +2,29 @@
 
 - cd proshop/ && npx create-react-app proshop
 - cleanup files
+- npm run dev once concurrently is setup, npm run server to run just server for testing
 
 ## Dependencies /frontend
 
 - npm install react-bootstrap
 - Add bootswatch theme css and simple header from bootstrap react
 - npm install react-router-dom react-router-bootstrap
+- npm install axios
+- package.json add proxy into first object "proxy": "http://127.0.0.1:5000", to avoid CORS and enable api calls.
 
-###
+## Dependencies /root
+
+- npm init
+- entry point select server.js
+- npm install express
+- In package.json put into "scripts" to use npm start and concurrently:
+  "start": "node backend/server",
+  "server": "nodemon backend/server",
+  "client": "npm start --prefix frontend",
+  "dev": "concurrently \"npm run server\" \"npm run client\" "
+  inside main object add "type": "module" to use es6 modules instead of having to use require etc.
+- npm install nodemon concurrently --save-dev
+- npm install dotenv
 
 ###
 

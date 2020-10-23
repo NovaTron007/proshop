@@ -74,4 +74,8 @@ const products = [
   }
 ];
 
-module.exports = products;
+// reg nodejs way
+// module.exports = products;
+
+// module way by adding type: module in package.json
+export default products;
