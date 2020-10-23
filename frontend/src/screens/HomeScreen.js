@@ -1,7 +1,7 @@
 import React from "react";
 import { Row, Col } from "react-bootstrap";
 import products from "../products";
-import Product from "../components/Product"; // map products to this child component
+import Product from "../components/Product"; // map products to this child component: product
 
 const HomeScreen = () => {
   return (

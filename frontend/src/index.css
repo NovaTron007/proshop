@@ -1,5 +1,13 @@
 /* Main CSS File */
-
+:root {
+  --primary: #44d62c;
+}
+.btn-success {
+  background-color: var(--primary);
+}
+.card-body > a {
+  color: var(--primary);
+}
 main {
   min-height: 80vh;
 }
