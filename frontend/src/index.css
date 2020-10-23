@@ -6,7 +6,11 @@ main {
 .rating span {
   margin: 0.1rem;
 }
-
+.navbar-brand {
+  color: #44d62c !important;
+  font-weight: bold;
+  font-size: 24px;
+}
 h3 {
   padding: 1rem 0;
 }

@@ -7,6 +7,7 @@
 
 - npm install react-bootstrap
 - Add bootswatch theme css and simple header from bootstrap react
+- npm install react-router-dom react-router-bootstrap
 
 ###
 
