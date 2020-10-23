@@ -1,5 +1,6 @@
 import React from "react";
 import { Card } from "react-bootstrap";
+import Rating from "./Rating"; // rating child component
 
 // destructure product passed into component
 const Product = ({ product }) => {
@@ -13,9 +14,8 @@ const Product = ({ product }) => {
           <Card.Title as="div">{product.name}</Card.Title>
         </a>
         <Card.Text>
-          <div className="my-3">
-            {product.rating} from {product.numReviews} reviews
-          </div>
+          {/* pass ratings to rating component */}
+          <Rating value={product.rating} text={`${product.numReviews} reviews`} />
         </Card.Text>
         <Card.Text as="h3">${product.price}</Card.Text>
       </Card.Body>
