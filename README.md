@@ -25,6 +25,7 @@
   inside main object add "type": "module" to use es6 modules instead of having to use require etc.
 - npm install nodemon concurrently --save-dev
 - npm install dotenv
+- npm install mongoose
 
 ###
 
