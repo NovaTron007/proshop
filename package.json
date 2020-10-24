@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "description": "Shopping cart app using ReactJS and Node JS.",
   "main": "server.js",
-  "type":"module",
+  "type": "module",
   "scripts": {
     "start": "node backend/server",
     "server": "nodemon backend/server",
@@ -21,7 +21,8 @@
   },
   "homepage": "https://github.com/NovaTron007/proshop#readme",
   "dependencies": {
-    "express": "^4.17.1"
+    "express": "^4.17.1",
+    "mongoose": "^5.10.10"
   },
   "devDependencies": {
     "concurrently": "^5.3.0",

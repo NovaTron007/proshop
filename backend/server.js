@@ -1,10 +1,15 @@
+// using type:module, need to add extension for files
 import express from "express"; // create routes
 import dotenv from "dotenv"; // use constants
-import products from "./data/products.js"; //using type:module, need to add extension for files
+import products from "./data/products.js";
+import connectDB from "./config/db.js"; // db connection
 
 const app = express();
 
 dotenv.config(); // use env file
+
+// connect to db
+connectDB();
 
 app.get("/", (req, res) => {
   res.send("API is running..");
