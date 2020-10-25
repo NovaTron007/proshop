@@ -18,11 +18,25 @@
 - entry point select server.js
 - npm install express
 - In package.json put into "scripts" to use npm start and concurrently:
+
   "start": "node backend/server",
+
   "server": "nodemon backend/server",
+
   "client": "npm start --prefix frontend",
-  "dev": "concurrently \"npm run server\" \"npm run client\" "
-  inside main object add "type": "module" to use es6 modules instead of having to use require etc.
+
+  "dev": "concurrently \"npm run server\" \"npm run client\" ",
+
+  "data:import": "node backend/seeder",
+
+  "data:destroy": "node backend/seeder -d"
+
+  inside main object add
+
+  "type": "module" to use es6 modules instead of having to use require etc.
+
+  Seed data using command: npm run data:import or npm run data:destroy
+
 - npm install nodemon concurrently --save-dev
 - npm install dotenv
 - npm install mongoose
