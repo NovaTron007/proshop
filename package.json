@@ -21,6 +21,7 @@
   },
   "homepage": "https://github.com/NovaTron007/proshop#readme",
   "dependencies": {
+    "bcryptjs": "^2.4.3",
     "express": "^4.17.1",
     "mongoose": "^5.10.10"
   },

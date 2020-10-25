@@ -26,6 +26,7 @@
 - npm install nodemon concurrently --save-dev
 - npm install dotenv
 - npm install mongoose
+- npm install bcryptjs
 
 ###
 
