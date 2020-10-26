@@ -11,6 +11,7 @@
 - npm install react-router-dom react-router-bootstrap
 - npm install axios
 - package.json add proxy into first object "proxy": "http://127.0.0.1:5000", to avoid CORS and enable api calls.
+- npm install redux react-redux redux-thunk redux-devtools-extension
 
 ## Dependencies /root
 
