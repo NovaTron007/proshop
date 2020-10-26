@@ -41,6 +41,7 @@
 - npm install dotenv
 - npm install mongoose
 - npm install bcryptjs
+- npm install express-async-handler
 
 ###
 

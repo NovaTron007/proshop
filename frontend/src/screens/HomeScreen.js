@@ -6,6 +6,7 @@ import Product from "../components/Product"; // map products to this child compo
 const HomeScreen = () => {
   const [products, setProducts] = useState([]); // products is array of obj
 
+  // fetch products
   useEffect(() => {
     const fetchProducts = async () => {
       const { data } = await axios.get("/api/products"); // destructure res.data
