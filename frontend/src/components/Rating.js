@@ -32,7 +32,7 @@ Rating.defaultProps = {
 
 // validation
 Rating.propTypes = {
-  value: PropTypes.number.isRequired,
+  value: PropTypes.number,
   text: PropTypes.string.isRequired,
   color: PropTypes.string
 };
