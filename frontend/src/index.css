@@ -2,6 +2,18 @@
 :root {
   --primary: #44d62c;
 }
+h1 {
+  font-size: 1.8rem;
+  padding: 1rem 0;
+}
+h2 {
+  font-size: 1.4rem;
+  padding: 0.5rem 0;
+}
+h3 {
+  font-size: 1.2rem;
+  padding: 0.5rem 0;
+}
 .btn-success {
   background-color: var(--primary);
 }
@@ -19,6 +31,16 @@ main {
   font-weight: bold;
   font-size: 24px;
 }
-h3 {
-  padding: 1rem 0;
+.navbar {
+  background-color: #222 !important;
+}
+.list-group-item:hover {
+  background-color: #222 !important;
+  color: #adafae;
+}
+.list-group-item {
+  border: none !important;
+}
+.list-group-item a {
+  color: var(--primary);
 }

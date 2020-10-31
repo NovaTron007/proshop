@@ -10,7 +10,7 @@ import { listProductDetails } from "../actions/productActions";
 // use props.match to get url, destructure match
 const ProductScreen = ({ history, match }) => {
   // manipulate state
-  const [qty, setQty] = useState(0);
+  const [qty, setQty] = useState(1);
 
   // initialise dispatch
   const dispatch = useDispatch();

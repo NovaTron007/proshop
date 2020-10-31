@@ -1,9 +1,7 @@
 // import constants
 import { PRODUCT_LIST_REQUEST, PRODUCT_LIST_SUCCESS, PRODUCT_LIST_FAIL, PRODUCT_DETAILS_REQUEST, PRODUCT_DETAILS_SUCCESS, PRODUCT_DETAILS_FAIL } from "../constants/productConstants";
 
-/*  reducer takes in 2 params: state, action (data/payload). Get action payload and save in store.
-    data flow: action->reducer->store
- */
+//reducer takes in 2 params: state, action (data/payload). Get action payload,save in store. data flow: action->reducer->store
 
 // Product list
 export const productListReducer = (state = { products: [] }, action) => {
