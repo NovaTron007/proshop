@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux"; // dispatch action, display state
 import { Row, Col, ListGroup, Image, Form, Button, Card, ListGroupItem } from "react-bootstrap";
 import Message from "../components/Message"; // error message
-import { addToCart } from "../actions/cartActions"; // addToCart method from action
+import { addToCart, removeFromCart } from "../actions/cartActions"; // addToCart method from action
 
 // get props, match to get id,  location to get query string ?, history for redirect
 const CartScreen = ({ match, location, history }) => {
@@ -17,13 +17,17 @@ const CartScreen = ({ match, location, history }) => {
   const { cartItems } = cart; // destructure cart from state
   console.log(cartItems);
 
+  // dispatch addToCart action
   useEffect(() => {
     if (productId) {
       dispatch(addToCart(productId, qty)); // get from url
     }
   }, [dispatch, productId, qty]); // watch for changes and trigger dispatch
 
-  const removeFromCartHandler = id => {};
+  // dispatch removeFromCart action
+  const removeFromCartHandler = id => {
+    dispatch(removeFromCart(id));
+  };
 
   const checkoutHandler = () => {
     history.push("/login?redirect=shipping");
@@ -32,13 +36,13 @@ const CartScreen = ({ match, location, history }) => {
     <Row>
       <Col md={8}>
         <h1>Shopping Cart</h1>
-        {/* loop cartItems from store: use store fields */}
         {cartItems.length === 0 ? (
           <Message variant="danger">
             No items in cart, <Link to="/">return home</Link>
           </Message>
         ) : (
           <ListGroup>
+            {/* loop cartItems from store: uses fields in store */}
             {cartItems.map(item => (
               <ListGroup.Item key={item.product_id}>
                 <Row>

@@ -18,7 +18,7 @@ const cartItemsFromStorage = localStorage.getItem("cart") ? JSON.parse(localStor
 
 //2. Initialise State when redux store loads
 const initialState = {
-  // get cart from localstorage
+  // cart object: get cart from localstorage
   cart: { cartItems: cartItemsFromStorage }
 };
 
