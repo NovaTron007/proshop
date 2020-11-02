@@ -22,7 +22,7 @@ app.get("/", (req, res) => {
   res.send("API is running..");
 });
 
-// Products routes: any route that uses api/products use productRoutes
+// Routes: all routes inside productRoutes, userRoutes prepended
 app.use("/api/products/", productRoutes);
 app.use("/api/users/", userRoutes);
 

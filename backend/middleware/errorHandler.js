@@ -1,3 +1,4 @@
+// middleware: req, res, next always
 // invalid url
 const notFound = (req, res, next) => {
   const error = new Error(`Not found ${req.originalUrl}`);
