@@ -26,10 +26,23 @@ const userSchema = mongoose.Schema(
     timestamps: true
   }
 );
-// match password function with db password this.password
+
+// Validate passwrod: match password function with db password this.password
 userSchema.methods.matchPassword = async function (enteredPassword) {
   return await bcrypt.compare(enteredPassword, this.password);
 };
+
+// Encrypt password before registration
+userSchema.pre("save", async function (next) {
+  // skip if password was not changed by user (mongoose)
+  if (!this.isModified("password")) {
+    next();
+  }
+  // hash password
+  const salt = await bcrypt.genSalt(10);
+  this.password = await bcrypt.hash(this.password, salt);
+});
+
 const User = mongoose.model("User", userSchema);
 
 export default User;
