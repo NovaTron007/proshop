@@ -43,6 +43,7 @@
 - npm install mongoose
 - npm install bcryptjs
 - npm install express-async-handler
+- npm install jsonwebtoken
 
 ###
 

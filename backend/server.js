@@ -6,8 +6,12 @@ import { notFound, errorHandler } from "./middleware/errorHandler.js"; // errorH
 
 // import routes
 import productRoutes from "./routes/productRoutes.js";
+import userRoutes from "./routes/userRoutes.js";
 
 const app = express();
+
+// access form data in body
+app.use(express.json());
 
 dotenv.config(); // use env file
 
@@ -20,6 +24,7 @@ app.get("/", (req, res) => {
 
 // Products routes: any route that uses api/products use productRoutes
 app.use("/api/products/", productRoutes);
+app.use("/api/users/", userRoutes);
 
 // use error functions
 app.use(notFound);
