@@ -1,20 +1,25 @@
 import React, { useEffect } from "react";
 import { Link } from "react-router-dom";
-import { useDispatch, useSelector } from "react-redux"; // dispatch action, display state
-import { Row, Col, ListGroup, Image, Form, Button, Card, ListGroupItem } from "react-bootstrap";
+// state: trigger action, display items
+import { useDispatch, useSelector } from "react-redux";
+// boostrap
+import { Row, Col, ListGroup, Image, Form, Button, Card } from "react-bootstrap";
 import Message from "../components/Message"; // error message
+// actions
 import { addToCart, removeFromCart } from "../actions/cartActions"; // addToCart method from action
 
-// get props, match to get id,  location to get query string ?, history for redirect
+// get props, match to get id,  window.location: gets query string ?, history for redirect
 const CartScreen = ({ match, location, history }) => {
   const productId = match.params.id;
   const qty = location.search ? Number(location.search.split("=")[1]) : 1; // if query, get pos 1(?qty=1 is now qty = [qty, 1]) etc.
 
-  const dispatch = useDispatch();
+  // ready action
+  const dispatch = useDispatch(); // ready action
 
-  // display state
-  const cart = useSelector(state => state.cart); // get state from cart
-  const { cartItems } = cart; // destructure cart from state
+  // redux store
+  const cart = useSelector(state => state.cart); // cart from state from store, gotten from reducer
+  const { cartItems } = cart; // destructure cart, get action values
+
   console.log(cartItems);
 
   // dispatch addToCart action

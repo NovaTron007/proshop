@@ -5,21 +5,25 @@ import { composeWithDevTools } from "redux-devtools-extension";
 // import reducers
 import { productListReducer, productDetailsReducer } from "./reducers/productReducers";
 import { cartReducer } from "./reducers/cartReducers";
+import { userLoginReducer } from "./reducers/userReducers";
 
-//1. Create reducer: use Multiple reducers here
+//1. Combine reducers: create multiple reducers here
 const reducer = combineReducers({
   productList: productListReducer, // productList reducer
   productDetails: productDetailsReducer, // productDetails reducer
-  cart: cartReducer // cart reducer
+  cart: cartReducer, // cart reducer
+  userLogin: userLoginReducer // login reducer
 });
 
-// check cart in localStorage
+// LocalStorage: check cart, userInfo
 const cartItemsFromStorage = localStorage.getItem("cart") ? JSON.parse(localStorage.getItem("cart")) : [];
+const userInfoFromStorage = localStorage.getItem("userInfo") ? JSON.parse(localStorage.getItem("userInfo")) : null;
 
 //2. Initialise State when redux store loads
 const initialState = {
   // cart object: get cart from localstorage
-  cart: { cartItems: cartItemsFromStorage }
+  cart: { cartItems: cartItemsFromStorage },
+  userLogin: { userInfo: userInfoFromStorage }
 };
 
 const middleware = [thunk]; // add middleware spread new middlewares

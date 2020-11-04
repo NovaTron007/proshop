@@ -1,9 +1,13 @@
 import React, { useEffect } from "react";
-import { useDispatch, useSelector } from "react-redux"; // trigger action, display items
+// state: trigger action, display items
+import { useDispatch, useSelector } from "react-redux";
+// boostrap
 import { Row, Col } from "react-bootstrap";
+//components
 import Loader from "../components/Loader";
 import Message from "../components/Message";
 import Product from "../components/Product"; // map products to this child component: product
+// actions
 import { listProducts } from "../actions/productActions"; // action
 
 const HomeScreen = () => {

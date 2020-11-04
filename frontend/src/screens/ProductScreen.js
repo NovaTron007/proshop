@@ -1,10 +1,14 @@
 import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
+// state: trigger action, display items
 import { useDispatch, useSelector } from "react-redux";
+// bootstrap
 import { Row, Col, Image, ListGroup, Card, Button, ListGroupItem, Form } from "react-bootstrap";
+// components
 import Rating from "../components/Rating"; // get rating component to display
 import Message from "../components/Message";
 import Loader from "../components/Loader";
+// actions
 import { listProductDetails } from "../actions/productActions";
 
 // use props.match to get url, destructure match
@@ -91,7 +95,7 @@ const ProductScreen = ({ history, match }) => {
                   </ListGroupItem>
                 )}
                 <ListGroupItem>
-                  <Button className="btn btn-success" type="button" disabled={product.countInStock === 0} onClick={addToCartHandler}>
+                  <Button className="btn-success" type="button" disabled={product.countInStock === 0} onClick={addToCartHandler}>
                     {product.countInStock > 0 ? "Add to cart" : "Out of stock"}
                   </Button>
                 </ListGroupItem>
