@@ -15,13 +15,14 @@ const reducer = combineReducers({
   userLogin: userLoginReducer // login reducer
 });
 
-// LocalStorage: check cart, userInfo
+// LocalStorage: get cart, userInfo
 const cartItemsFromStorage = localStorage.getItem("cart") ? JSON.parse(localStorage.getItem("cart")) : [];
 const userInfoFromStorage = localStorage.getItem("userInfo") ? JSON.parse(localStorage.getItem("userInfo")) : null;
 
 //2. Initialise State when redux store loads
 const initialState = {
   // cart object: get cart from localstorage
+  // userLogin object: assign from storage
   cart: { cartItems: cartItemsFromStorage },
   userLogin: { userInfo: userInfoFromStorage }
 };
