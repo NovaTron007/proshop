@@ -129,12 +129,6 @@ export const updateUserProfile = user => async (dispatch, getState) => {
       type: USER_UPDATE_PROFILE_REQUEST
     });
 
-    // 2. login user after update to affect navbar username
-    dispatch({
-      type: USER_LOGIN_SUCCESS,
-      payload: data // user data with token from server
-    });
-
     // logged in user obj in store
     const {
       userLogin: { userInfo } // destructure

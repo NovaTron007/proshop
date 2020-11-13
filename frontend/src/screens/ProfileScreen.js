@@ -42,7 +42,7 @@ const ProfileScreen = ({ location, history }) => {
         setEmail(user.email);
       }
     }
-  }, [history, userInfo, user]); // run again if these change
+  }, [dispatch, history, userInfo, user]); // run again if these change
 
   const submitHandler = e => {
     e.preventDefault();
@@ -59,6 +59,7 @@ const ProfileScreen = ({ location, history }) => {
     <Row>
       <Col md={3}>
         <h2>Update profile</h2>
+        {loading && <Loader />}
         {message && <Message variant="danger">{message}</Message>}
         {error && <Message variant="danger">{error}</Message>}
         {success && <Message variant="success">Profile updated!</Message>}
