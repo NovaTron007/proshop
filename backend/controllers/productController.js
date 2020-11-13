@@ -1,6 +1,8 @@
 import asyncHandler from "express-async-handler";
 import Product from "../models/productModel.js"; // model to query collection
 
+// Database queries
+
 // @desc    Fetch all Products
 // @route   GET /api/products
 // @access  Public

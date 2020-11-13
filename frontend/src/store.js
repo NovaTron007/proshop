@@ -5,16 +5,18 @@ import { composeWithDevTools } from "redux-devtools-extension";
 // import reducers
 import { productListReducer, productDetailsReducer } from "./reducers/productReducers";
 import { cartReducer } from "./reducers/cartReducers";
-import { userLoginReducer } from "./reducers/userReducers";
-import { userRegisterReducer } from "./reducers/userReducers";
+import { userLoginReducer, userRegisterReducer, userDetailsReducer, userUpdateProfileReducer } from "./reducers/userReducers";
 
-//1. Combine reducers: add reducers here
+//1. Combine reducers: add reducers here.
 const reducer = combineReducers({
+  // state: store assigns data from actions here
   productList: productListReducer, // productList reducer
   productDetails: productDetailsReducer, // productDetails reducer
   cart: cartReducer, // cart reducer
   userLogin: userLoginReducer, // login reducer
-  userRegister: userRegisterReducer // register reducer
+  userRegister: userRegisterReducer, // register reducer
+  userDetails: userDetailsReducer, // user details reducer
+  userUpdateProfile: userUpdateProfileReducer // update profile reducer
 });
 
 // LocalStorage: get cart, userInfo

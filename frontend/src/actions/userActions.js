@@ -1,7 +1,9 @@
 import axios from "axios";
-import { USER_LOGIN_REQUEST, USER_LOGIN_SUCCESS, USER_LOGIN_FAIL, USER_LOGOUT, USER_REGISTER_FAIL, USER_REGISTER_REQUEST, USER_REGISTER_SUCCESS } from "../constants/userConstants";
+import { USER_LOGIN_REQUEST, USER_LOGIN_SUCCESS, USER_LOGIN_FAIL, USER_LOGOUT, USER_DETAILS_REQUEST, USER_DETAILS_SUCCESS, USER_DETAILS_FAIL, USER_UPDATE_PROFILE_REQUEST, USER_UPDATE_PROFILE_SUCCESS, USER_UPDATE_PROFILE_FAIL } from "../constants/userConstants";
 
-// Login action
+// data flow: action->reducer->store
+
+// Login action: process form
 export const login = (email, password) => async dispatch => {
   try {
     // 1. action type
@@ -43,12 +45,12 @@ export const logout = () => dispatch => {
   });
 };
 
-// Register action
+// Register action: process form
 export const register = (name, email, password) => async dispatch => {
   try {
     // 1. dispatch with action type
     dispatch({
-      type: USER_REGISTER_REQUEST
+      type: USER_DETAILS_REQUEST
     });
 
     // prepare headers for sending data
@@ -62,7 +64,7 @@ export const register = (name, email, password) => async dispatch => {
 
     // 3. dispatch payload pass payload to reducer
     dispatch({
-      type: USER_REGISTER_SUCCESS,
+      type: USER_DETAILS_SUCCESS,
       payload: data
     });
 
@@ -72,11 +74,91 @@ export const register = (name, email, password) => async dispatch => {
       payload: data // user data with token from server
     });
 
-    // set storage for login
+    // set data in storage for userInfo
     localStorage.setItem("userInfo", JSON.stringify(data));
   } catch (error) {
     dispatch({
-      type: USER_REGISTER_FAIL,
+      type: USER_DETAILS_FAIL,
+      payload: error.response && error.response.data.message ? error.response.data.message : error.message // get error message into payload
+    });
+  }
+};
+
+// User details action: process form pass in id for dispatch, getState to get userLogin from store
+export const getUserDetails = profile => async (dispatch, getState) => {
+  try {
+    // 1. dispatch with action type
+    dispatch({
+      type: USER_DETAILS_REQUEST
+    });
+
+    // logged in user obj in store
+    const {
+      userLogin: { userInfo } // destructure
+    } = getState();
+
+    // prepare headers for sending data
+    const config = {
+      headers: {
+        "Content-type": "application/json",
+        Authorization: `Bearer ${userInfo.token}`
+      }
+    };
+
+    // 2. get user with id the id passed
+    const { data } = await axios.get(`/api/users/${profile}`, config);
+    console.log(data);
+    // 3. dispatch payload pass payload to reducer
+    dispatch({
+      type: USER_DETAILS_SUCCESS,
+      payload: data
+    });
+  } catch (error) {
+    dispatch({
+      type: USER_DETAILS_FAIL,
+      payload: error.response && error.response.data.message ? error.response.data.message : error.message // get error message into payload
+    });
+  }
+};
+
+// User details action: pass in user obj for dispatch, getState to get userLogin from store
+export const updateUserProfile = user => async (dispatch, getState) => {
+  try {
+    // 1. dispatch with action type
+    dispatch({
+      type: USER_UPDATE_PROFILE_REQUEST
+    });
+
+    // 2. login user after update to affect navbar username
+    dispatch({
+      type: USER_LOGIN_SUCCESS,
+      payload: data // user data with token from server
+    });
+
+    // logged in user obj in store
+    const {
+      userLogin: { userInfo } // destructure
+    } = getState();
+
+    // prepare headers for sending data
+    const config = {
+      headers: {
+        "Content-type": "application/json",
+        Authorization: `Bearer ${userInfo.token}`
+      }
+    };
+
+    // 2. get user with id the id passed
+    const { data } = await axios.put(`/api/users/profile`, user, config);
+    console.log(data);
+    // 3. dispatch payload pass payload to reducer
+    dispatch({
+      type: USER_UPDATE_PROFILE_SUCCESS,
+      payload: data
+    });
+  } catch (error) {
+    dispatch({
+      type: USER_UPDATE_PROFILE_FAIL,
       payload: error.response && error.response.data.message ? error.response.data.message : error.message // get error message into payload
     });
   }
