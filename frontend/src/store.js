@@ -19,15 +19,18 @@ const reducer = combineReducers({
   userUpdateProfile: userUpdateProfileReducer // update profile reducer
 });
 
-// LocalStorage: get cart, userInfo
-const cartItemsFromStorage = localStorage.getItem("cart") ? JSON.parse(localStorage.getItem("cart")) : [];
+// LocalStorage: get storage items that were set in cartAction.js
+const cartItemsFromStorage = localStorage.getItem("cart") ? JSON.parse(localStorage.getItem("cart")) : []; // has storage? else empty storage
 const userInfoFromStorage = localStorage.getItem("userInfo") ? JSON.parse(localStorage.getItem("userInfo")) : null;
+const shippingAddressFromStorage = localStorage.getItem("shippingAddress") ? JSON.parse(localStorage.getItem("shippingAddress")) : {};
 
 //2. Initialise State when redux store loads
 const initialState = {
-  // cart object: get cart from localstorage
-  // userLogin object: assign from storage
-  cart: { cartItems: cartItemsFromStorage },
+  // assign new obj with the storage
+  cart: {
+    cartItems: cartItemsFromStorage,
+    shippingAddress: shippingAddressFromStorage
+  },
   userLogin: { userInfo: userInfoFromStorage }
 };
 
