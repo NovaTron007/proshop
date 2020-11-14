@@ -1,10 +1,13 @@
 import React, { useState } from "react";
+// state: trigger action, display items
+import { useDispatch, useSelector } from "react-redux"; // call action, get state from store
 // bootstrap
 import { Form, Button, Col } from "react-bootstrap";
-import { useDispatch, useSelector } from "react-redux"; // call action, get state from store
-import { savePaymentMethod } from "../actions/cartActions"; // action to save address in storage
+// components
 import FormContainer from "../components/FormContainer";
 import CheckoutSteps from "../components/CheckoutSteps"; // checkout nav
+// actions
+import { savePaymentMethod } from "../actions/cartActions"; // action to save address in storage
 
 const PaymentScreen = ({ history }) => {
   // pull data from storage i.e inside initialState obj, the cart obj in store.js
