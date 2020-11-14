@@ -1,6 +1,18 @@
 /* Main CSS File */
 :root {
   --primary: #44d62c;
+  --grey: #222;
+}
+.nav-item > a {
+  color: #44d62c;
+}
+.dropdown-item:focus,
+.dropdown-item:hover {
+  background-color: var(--grey);
+}
+.dropdown-item.active,
+.dropdown-item:active {
+  background-color: var(--primary);
 }
 h1 {
   font-size: 1.8rem;

@@ -4,6 +4,7 @@ import { Form, Button } from "react-bootstrap";
 import { useDispatch, useSelector } from "react-redux"; // call action, get state from store
 import { saveShippingAddress } from "../actions/cartActions"; // action to save address in storage
 import FormContainer from "../components/FormContainer";
+import CheckoutSteps from "../components/CheckoutSteps"; // checkout nav
 
 const ShippingScreen = ({ history }) => {
   // pull data from storage i.e inside initialState obj, the cart obj in store.js
@@ -23,11 +24,14 @@ const ShippingScreen = ({ history }) => {
     e.preventDefault();
     // dispatch save shipping as an object with the form fields
     dispatch(saveShippingAddress({ address, city, postalCode, country }));
-    history.push("/payments"); // redirect to payments screen
+    history.push("/payment"); // redirect to payments screen
   };
 
   return (
     <FormContainer>
+      {/* checkout nav: pass in step text to checkout to render conditions */}
+      <CheckoutSteps step1 step2 />
+
       <h1>Shipping</h1>
       <Form onSubmit={onSubmitHandler}>
         <Form.Group controlId="address">
