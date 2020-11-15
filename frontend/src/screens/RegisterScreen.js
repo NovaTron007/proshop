@@ -24,10 +24,14 @@ const RegisterScreen = ({ location, history }) => {
 
   // redux store
   const userRegister = useSelector(state => state.userRegister); // get state from store, gotten from reducer
-  const { loading, error, userInfo } = userRegister; // destructure userLogin, get action values
+  const userLogin = useSelector(state => state.userLogin); // get login status
+  const { userInfo } = userLogin; // destructure userLogin: get data from action
+  const { loading, error } = userRegister; // loading, error: get data from action
 
-  const redirect = location.search ? location.search.split("=")[1] : "/"; // if query, get pos 1(?qty=1 is now qty = [qty, 1]) etc.
-  console.log("redirect:" + redirect);
+  // redirect: set redirect to shipping else to home '/' if logged in
+  // if has ?query, split at equals->becomes array: get pos 1(?redirect=shipping). const redirect = [redirect, shipping] or '/'
+  const redirect = location.search ? location.search.split("=")[1] : "/";
+  console.log("RegisterScreen redirect:" + redirect);
 
   // check user login: redirect if logged in
   useEffect(() => {
@@ -81,10 +85,7 @@ const RegisterScreen = ({ location, history }) => {
       <Row className="py-3">
         <Col>
           {/* option for redirect */}
-          Already have an account?{" "}
-          <Link to={redirect ? `/login?redirect=${redirect}` : "login"} className="success">
-            Signin
-          </Link>
+          Already have an account? <Link to={redirect ? `/login?redirect=${redirect}` : "/login"}>Signin</Link>
         </Col>
       </Row>
     </FormContainer>

@@ -21,15 +21,17 @@ const LoginScreen = ({ location, history }) => {
 
   // redux store
   const userLogin = useSelector(state => state.userLogin); // get state from store, gotten from reducer
-  const { loading, error, userInfo } = userLogin; // destructure userLogin, get action values
+  const { loading, error, userInfo } = userLogin; // destructure userLogin, get data from action
 
-  const redirect = location.search ? location.search.split("=")[1] : "/"; // if query, get pos 1(?qty=1 is now qty = [qty, 1]) etc.
+  // redirect: set redirect to shipping else to home '/' if logged in
+  // if has ?query, split at equals->becomes array: get pos 1(?redirect=shipping). const redirect = [redirect, shipping] or '/'
+  const redirect = location.search ? location.search.split("=")[1] : "/";
   console.log("redirect:" + redirect);
 
   // check user login: redirect if logged in
   useEffect(() => {
     if (userInfo) {
-      history.push(redirect);
+      history.push(redirect); // login redirect: redirect to home '/' if logged in
     }
   }, [history, userInfo, redirect]); // run again if these change
 
