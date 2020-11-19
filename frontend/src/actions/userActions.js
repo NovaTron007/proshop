@@ -1,7 +1,7 @@
 import axios from "axios";
 import { USER_LOGIN_REQUEST, USER_LOGIN_SUCCESS, USER_LOGIN_FAIL, USER_LOGOUT, USER_DETAILS_REQUEST, USER_DETAILS_SUCCESS, USER_DETAILS_FAIL, USER_UPDATE_PROFILE_REQUEST, USER_UPDATE_PROFILE_SUCCESS, USER_UPDATE_PROFILE_FAIL, USER_REGISTER_REQUEST, USER_REGISTER_SUCCESS, USER_REGISTER_FAIL } from "../constants/userConstants";
 
-// data flow: action->reducer->store
+// Action to hit api (actions to send data to db or storage. Data flow: action->reducer->store)
 
 // Login action: process form
 export const login = (email, password) => async dispatch => {
@@ -94,7 +94,7 @@ export const getUserDetails = profile => async (dispatch, getState) => {
 
     // logged in user obj in store
     const {
-      userLogin: { userInfo } // destructure
+      userLogin: { userInfo } // destructure store which has userInfo in localStorage
     } = getState();
 
     // prepare headers for sending data
@@ -131,7 +131,7 @@ export const updateUserProfile = user => async (dispatch, getState) => {
 
     // logged in user obj in store
     const {
-      userLogin: { userInfo } // destructure
+      userLogin: { userInfo } // destructure store which has userInfo in localStorage
     } = getState();
 
     // prepare headers for sending data

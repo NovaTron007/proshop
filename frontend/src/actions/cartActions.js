@@ -1,6 +1,8 @@
 import axios from "axios";
 import { CART_ADD_ITEM, CART_REMOVE_ITEM, CART_SAVE_PAYMENT_METHOD, CART_SAVE_SHIPPING_ADDRESS } from "../constants/cartConstants";
 
+// Action to hit api (actions to send data to db or storage. Data flow: action->reducer->store)
+
 export const addToCart = (id, qty) => async (dispatch, getState) => {
   const { data } = await axios.get(`/api/products/${id}`); // get product info from db
   dispatch({

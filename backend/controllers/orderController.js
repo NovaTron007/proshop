@@ -12,7 +12,6 @@ const addOrderItems = asyncHandler(async (req, res) => {
     orderItems, 
     shippingAddress, 
     paymentMethod, 
-    itemsPrice, 
     taxPrice, 
     shippingPrice, 
     totalPrice } = req.body;
@@ -24,11 +23,10 @@ if(orderItems && orderItems.length === 0){
 } else {
   // create order obj using model
   const order = new Order ({ 
-    orderItems, 
-    user: req.user._id,
+    orderItems, // foreign key as model required
+    user: req.user._id, // foreign key as model required
     shippingAddress, 
     paymentMethod, 
-    itemsPrice, 
     taxPrice, 
     shippingPrice, 
     totalPrice 
