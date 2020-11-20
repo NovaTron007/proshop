@@ -6,7 +6,7 @@ import { composeWithDevTools } from "redux-devtools-extension";
 import { productListReducer, productDetailsReducer } from "./reducers/productReducers";
 import { cartReducer } from "./reducers/cartReducers";
 import { userLoginReducer, userRegisterReducer, userDetailsReducer, userUpdateProfileReducer } from "./reducers/userReducers";
-import { orderCreateReducer} from './reducers/orderReducers';
+import { orderCreateReducer, orderDetailsReducer } from "./reducers/orderReducers";
 
 //1. Combine reducers: add reducers here.
 const reducer = combineReducers({
@@ -18,7 +18,8 @@ const reducer = combineReducers({
   userRegister: userRegisterReducer, // register reducer
   userDetails: userDetailsReducer, // user details reducer
   userUpdateProfile: userUpdateProfileReducer, // update profile reducer
-  orderCreate: orderCreateReducer //  create order reducer  
+  orderCreate: orderCreateReducer, //  create order reducer
+  orderDetails: orderDetailsReducer // order details
 });
 
 // LocalStorage: get storage items that were set in cartAction.js

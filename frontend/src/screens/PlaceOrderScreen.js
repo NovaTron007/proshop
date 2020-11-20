@@ -1,4 +1,4 @@
-import React, {useEffect} from "react";
+import React, { useEffect } from "react";
 import { Link } from "react-router-dom";
 // state
 import { useDispatch, useSelector } from "react-redux"; // call action, get state from store
@@ -8,9 +8,9 @@ import { Button, Row, Col, Image, ListGroup, Card } from "react-bootstrap";
 import CheckoutSteps from "../components/CheckoutSteps"; // checkout nav
 import Message from "../components/Message";
 // action
-import { createOrder } from '../actions/orderActions'; // order action
+import { createOrder } from "../actions/orderActions"; // order action
 
-const PlaceOrderScreen = ({history}) => {
+const PlaceOrderScreen = ({ history }) => {
   const cart = useSelector(state => state.cart); // get cart state
 
   // add correct decimal places
@@ -27,25 +27,28 @@ const PlaceOrderScreen = ({history}) => {
 
   const dispatch = useDispatch();
 
-  const orderCreate = useSelector(state => state.orderCreate);// get store
+  const orderCreate = useSelector(state => state.orderCreate); // get store
   const { order, success, error } = orderCreate; // destructure state (action data in store)
- 
+
+  // push and set url with order id
   useEffect(() => {
-    if(success){
+    if (success) {
       history.push(`/order/${order._id}`);
     }
-  },[history, success, order]);
+  }, [history, success, order]);
 
   const placeOrderHandler = () => {
     // dispatch action, with storage values
-    dispatch(createOrder({
-      orderItems: cart.cartItems,
-      shippingAddress: cart.shippingAddress,
-      paymentMethod: cart.paymentMethod,
-      shippingPrice: cart.shippingPrice,
-      taxPrice: cart.taxPrice,
-      totalPrice: cart.totalPrice
-    }));
+    dispatch(
+      createOrder({
+        orderItems: cart.cartItems,
+        shippingAddress: cart.shippingAddress,
+        paymentMethod: cart.paymentMethod,
+        shippingPrice: cart.shippingPrice,
+        taxPrice: cart.taxPrice,
+        totalPrice: cart.totalPrice
+      })
+    );
   };
   return (
     <>

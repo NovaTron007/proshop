@@ -134,7 +134,7 @@ export const updateUserProfile = user => async (dispatch, getState) => {
       userLogin: { userInfo } // destructure store which has userInfo in localStorage
     } = getState();
 
-    // prepare headers for sending data
+    //prepare headers for sending data: pass in token to server
     const config = {
       headers: {
         "Content-type": "application/json",

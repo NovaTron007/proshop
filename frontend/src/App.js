@@ -16,6 +16,7 @@ import ProfileScreen from "./screens/ProfileScreen";
 import ShippingScreen from "./screens/ShippingScreen";
 import PaymentMethod from "./screens/PaymentScreen";
 import PlaceOrderScreen from "./screens/PlaceOrderScreen";
+import OrderScreen from "./screens/OrderScreen";
 
 const App = () => {
   return (
@@ -24,7 +25,7 @@ const App = () => {
       <main className="py-3">
         <Container>
           <Route exact path="/" component={HomeScreen} />
-          {/* :placeholder. Routes to display certain components */}
+          {/* :placeholder. Routes to display certain components, diff to backend */}
           <Route path="/product/:id" component={ProductScreen} />
           <Route path="/cart/:id?" component={CartScreen} />
           <Route path="/login" component={LoginScreen} />
@@ -33,6 +34,7 @@ const App = () => {
           <Route path="/shipping" component={ShippingScreen} />
           <Route path="/payment" component={PaymentMethod} />
           <Route path="/placeorder" component={PlaceOrderScreen} />
+          <Route path="/order/:id" component={OrderScreen} />
         </Container>
       </main>
       <Footer />
