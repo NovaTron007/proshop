@@ -23,10 +23,14 @@ app.get("/", (req, res) => {
   res.send("API is running..");
 });
 
-// Routes: all routes inside productRoutes, userRoutes prepended
+// Routes: prepend then use all routes set in routes controllers
 app.use("/api/products", productRoutes);
 app.use("/api/users", userRoutes);
 app.use("/api/orders", orderRoutes);
+
+// Paypal route to get id
+app.get("/api/config/paypal", (req, res) => res.send(process.env.PAYPAL_CLIENT_ID));
+
 // use error functions
 app.use(notFound);
 app.use(errorHandler);

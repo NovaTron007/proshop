@@ -15,8 +15,10 @@ const orderSchema = mongoose.Schema(
         qty: { type: Number, required: true },
         image: { type: String, required: true },
         price: { type: Number, required: true },
-        product: { 
+        product_id: {
+          // receive payload into model, action payload fields must match here i.e product_id
           type: mongoose.Schema.Types.ObjectId,
+          required: "true",
           ref: "Product"
         }
       }
