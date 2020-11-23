@@ -6,20 +6,26 @@ import { composeWithDevTools } from "redux-devtools-extension";
 import { productListReducer, productDetailsReducer } from "./reducers/productReducers";
 import { cartReducer } from "./reducers/cartReducers";
 import { userLoginReducer, userRegisterReducer, userDetailsReducer, userUpdateProfileReducer } from "./reducers/userReducers";
-import { orderCreateReducer, orderDetailsReducer } from "./reducers/orderReducers";
+import { orderCreateReducer, orderDetailsReducer, orderPayReducer } from "./reducers/orderReducers";
 
-//1. Combine reducers: add reducers here.
+//1. Combine reducers: add reducers here and save state to the store. state: store assigns data from actions here
+
 const reducer = combineReducers({
-  // state: store assigns data from actions here
+  // productReducers.js
   productList: productListReducer, // productList reducer
   productDetails: productDetailsReducer, // productDetails reducer
   cart: cartReducer, // cart reducer
+
+  // userReducers.js
   userLogin: userLoginReducer, // login reducer
   userRegister: userRegisterReducer, // register reducer
   userDetails: userDetailsReducer, // user details reducer
   userUpdateProfile: userUpdateProfileReducer, // update profile reducer
+
+  // orderReducers.js
   orderCreate: orderCreateReducer, //  create order reducer
-  orderDetails: orderDetailsReducer // order details
+  orderDetails: orderDetailsReducer, // order details
+  orderPay: orderPayReducer // order pay
 });
 
 // LocalStorage: get storage items that were set in cartAction.js

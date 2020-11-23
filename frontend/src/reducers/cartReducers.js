@@ -1,11 +1,18 @@
 import { CART_ADD_ITEM, CART_REMOVE_ITEM, CART_SAVE_PAYMENT_METHOD, CART_SAVE_SHIPPING_ADDRESS } from "../constants/cartConstants";
 
-//reducer takes in 2 params: state, action (data/payload). Get action payload,save in store. data flow: action->reducer->store
+//Reducer takes in 2 params: state, action (data/payload). Get action payload, then save in store. data flow: action->reducer->store
+
+// Action (call server)
+// 1. addToCart action checks for product in db.
+// 2. If exists dispatch into action payload, which is accessible by reducer
+
+// Reducer
+// 1. Store will be assigned this data. Set the state to payload here.
 
 export const cartReducer = (state = { cartItems: [], shippingAddress: {} }, action) => {
   switch (action.type) {
     case CART_ADD_ITEM:
-      const cartItem = action.payload;
+      const cartItem = action.payload; // set cartItem to payload from action
       const existItem = state.cartItems.find(item => item.product_id === cartItem.product_id);
 
       if (existItem) {

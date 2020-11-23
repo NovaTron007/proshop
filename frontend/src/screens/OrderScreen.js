@@ -1,9 +1,10 @@
-import React, { useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
+import axios from "axios";
 // state
 import { useDispatch, useSelector } from "react-redux"; // call action, get state from store
 // bootstrap
-import { Button, Row, Col, Image, ListGroup, Card } from "react-bootstrap";
+import { Row, Col, Image, ListGroup, Card } from "react-bootstrap";
 // components
 import Loader from "../components/Loader"; // checkout nav
 import Message from "../components/Message";
@@ -12,12 +13,15 @@ import { getOrderDetails } from "../actions/orderActions"; // order action
 
 const OrderScreen = ({ match }) => {
   const orderId = match.params.id; // get id in url
-
+  const [sdkReady, setSdkReady] = useState(false);
   const dispatch = useDispatch();
 
   // get order from state
   const orderDetails = useSelector(state => state.orderDetails);
   const { loading, order, error } = orderDetails; // desctructure order
+
+  const orderPay = useSelector(state => state.orderPay);
+  const { loading: loadingPay, success: successPay } = orderPay; // desctructure orderPay and can rename keys (new trick)
 
   if (!loading) {
     // add correct decimal places
@@ -30,12 +34,32 @@ const OrderScreen = ({ match }) => {
     order.shippingPrice = addDecimals(order.shippingPrice);
   }
 
-  // check no order use, latest order
   useEffect(() => {
-    if (!order || order._id !== orderId) {
+    // hit server.js endpoint for paypal id, add paypal script
+    const addPayPalScript = async () => {
+      const { data: clientId } = await axios.get("/api/config/paypal");
+      const script = document.createElement("script");
+      script.type = "text/javascript";
+      script.src = `https://www.paypal.com/sdk/js?client-id=${clientId}`;
+      script.async = true;
+      script.onload = () => setSdkReady(true);
+      document.body.appendChild(script); // add paypal script to body
+    };
+
+    // if order not there or successPay show details
+    if (!order || successPay) {
       dispatch(getOrderDetails(orderId));
     }
-  }, [order, orderId]);
+    // if order isn't paid show script and paypal btn
+    else if (!order.isPaid) {
+      // if paypal script not on page add it
+      if (!window.paypal) {
+        addPayPalScript();
+      } else {
+        setSdkReady(true);
+      }
+    }
+  }, [dispatch, order, successPay, orderId]);
 
   return loading ? (
     <Loader />
@@ -89,7 +113,7 @@ const OrderScreen = ({ match }) => {
                           </Col>
                           <Col>
                             {/* pass product id to placeholder */}
-                            <Link to={`/product/${item.product_id}`}>{item.name}</Link>
+                            <Link to={`/product/${item.product}`}>{item.name}</Link>
                           </Col>
                           <Col md={4}>
                             {item.qty} x $ {item.price} = $ {item.qty * item.price}
