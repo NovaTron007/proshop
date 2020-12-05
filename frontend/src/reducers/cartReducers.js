@@ -1,6 +1,7 @@
 import { CART_ADD_ITEM, CART_REMOVE_ITEM, CART_SAVE_PAYMENT_METHOD, CART_SAVE_SHIPPING_ADDRESS } from "../constants/cartConstants";
 
-//Reducer takes in 2 params: state, action (data/payload). Get action payload, then save in store. data flow: action->reducer->store
+// Reducer takes in 2 params: state, action (data/payload). Get dispatched action's payload,
+// Assign in reducer in store, to access date. data flow: dispatch action->reducer->store (config order: consts, reducer, store, action )
 
 // Action (call server)
 // 1. addToCart action checks for product in db.

@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import axios from "axios";
+import { PayPalButton } from "react-paypal-button-v2";
 // state
 import { useDispatch, useSelector } from "react-redux"; // call action, get state from store
 // bootstrap
@@ -9,19 +10,20 @@ import { Row, Col, Image, ListGroup, Card } from "react-bootstrap";
 import Loader from "../components/Loader"; // checkout nav
 import Message from "../components/Message";
 // action
-import { getOrderDetails } from "../actions/orderActions"; // order action
+import { getOrderDetails, payOrder } from "../actions/orderActions"; // orderActions
+import { ORDER_PAY_RESET } from "../constants/orderConstants";
 
 const OrderScreen = ({ match }) => {
   const orderId = match.params.id; // get id in url
   const [sdkReady, setSdkReady] = useState(false);
   const dispatch = useDispatch();
 
-  // get order from state
+  // get order state from store
   const orderDetails = useSelector(state => state.orderDetails);
-  const { loading, order, error } = orderDetails; // desctructure order
+  const { loading, order, error } = orderDetails; // destructure order
 
   const orderPay = useSelector(state => state.orderPay);
-  const { loading: loadingPay, success: successPay } = orderPay; // desctructure orderPay and can rename keys (new trick)
+  const { loading: loadingPay, success: successPay } = orderPay; // destructure orderPay and can rename keys (new trick)
 
   if (!loading) {
     // add correct decimal places
@@ -32,7 +34,12 @@ const OrderScreen = ({ match }) => {
     order.itemsPrice = addDecimals(order.orderItems.reduce((acc, item) => acc + item.price * item.qty, 0)); // reduce get each item and process, acc start at 0
     order.taxPrice = addDecimals(order.taxPrice);
     order.shippingPrice = addDecimals(order.shippingPrice);
+    order.totalPrice = addDecimals(order.totalPrice);
   }
+  const successPaymentHandler = paymentResult => {
+    console.log(paymentResult);
+    dispatch(payOrder(orderId, paymentResult));
+  };
 
   useEffect(() => {
     // hit server.js endpoint for paypal id, add paypal script
@@ -48,6 +55,7 @@ const OrderScreen = ({ match }) => {
 
     // if order not there or successPay show details
     if (!order || successPay) {
+      dispatch({ type: ORDER_PAY_RESET });
       dispatch(getOrderDetails(orderId));
     }
     // if order isn't paid show script and paypal btn
@@ -159,6 +167,12 @@ const OrderScreen = ({ match }) => {
                   <Col>$ {order.totalPrice}</Col>
                 </Row>
               </ListGroup.Item>
+              {!order.isPaid && (
+                <ListGroup.Item>
+                  {loadingPay && <Loader />}
+                  {!sdkReady ? <Loader /> : <PayPalButton amount={order.totalPrice} onSuccess={successPaymentHandler} />}
+                </ListGroup.Item>
+              )}
             </ListGroup>
           </Card>
         </Col>

@@ -1,5 +1,5 @@
 import axios from "axios";
-import { ORDER_CREATE_REQUEST, ORDER_CREATE_SUCCESS, ORDER_CREATE_FAIL, ORDER_DETAILS_SUCCESS, ORDER_DETAILS_FAIL, ORDER_DETAILS_REQUEST, ORDER_PAY_REQUEST } from "../constants/orderConstants";
+import { ORDER_CREATE_REQUEST, ORDER_CREATE_SUCCESS, ORDER_CREATE_FAIL, ORDER_DETAILS_SUCCESS, ORDER_DETAILS_FAIL, ORDER_DETAILS_REQUEST, ORDER_PAY_REQUEST, ORDER_LIST_MY_FAIL, ORDER_LIST_MY_REQUEST, ORDER_LIST_MY_SUCCESS } from "../constants/orderConstants";
 
 // Action to hit api (actions to send data to db or storage. Data flow: action->reducer->store)
 
@@ -84,7 +84,7 @@ export const payOrder = (orderId, paymentResult) => async (dispatch, getState) =
       type: ORDER_PAY_REQUEST
     });
 
-    // logged in user obj in store
+    // need logged in user obj from store
     const {
       userLogin: { userInfo } // destructure store which has userInfo in localStorage
     } = getState();
@@ -108,6 +108,42 @@ export const payOrder = (orderId, paymentResult) => async (dispatch, getState) =
   } catch (error) {
     dispatch({
       type: ORDER_DETAILS_FAIL,
+      payload: error.response && error.response.data.message ? error.response.data.message : error.message // get error message into payload
+    });
+  }
+};
+
+// Get user orders
+export const listMyOrders = () => async (dispatch, getState) => {
+  try {
+    // 1. dispatch with action type
+    dispatch({
+      type: ORDER_LIST_MY_REQUEST
+    });
+
+    // need logged in user obj from store
+    const {
+      userLogin: { userInfo } // destructure store which has userInfo in localStorage
+    } = getState();
+
+    // prepare headers for sending data: pass in token to server
+    const config = {
+      headers: {
+        Authorization: `Bearer ${userInfo.token}`
+      }
+    };
+
+    //2. pass in userid to api
+    const { data } = await axios.get(`/api/orders/myorders`, config); // pass config above with headers
+
+    // 3. dispatch payload and pass payload to reducer
+    dispatch({
+      type: ORDER_LIST_MY_SUCCESS,
+      payload: data
+    });
+  } catch (error) {
+    dispatch({
+      type: ORDER_LIST_MY_FAIL,
       payload: error.response && error.response.data.message ? error.response.data.message : error.message // get error message into payload
     });
   }
